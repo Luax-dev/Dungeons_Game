@@ -1,0 +1,39 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+
+
+namespace cfg
+{
+	const int fps = 60;
+
+	const int WindowWidth = 800;
+	const int WindowHeight = 600;
+
+}
+
+namespace pl
+{
+	struct Keys
+	{
+		sf::Keyboard::Key up;
+		sf::Keyboard::Key down;
+		sf::Keyboard::Key left;
+		sf::Keyboard::Key right;
+		sf::Keyboard::Key jump;
+
+		sf::Keyboard::Key open;
+	};
+}
+
+namespace config
+{
+	struct config
+	{
+		sf::Texture backgroundTexture;
+
+		sf::View camera;
+
+		float cameraY;
+
+	};
+}

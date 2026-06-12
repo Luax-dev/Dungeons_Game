@@ -1,0 +1,86 @@
+#include "GUI.h"
+#include "Dungeons.h"
+
+#include <iostream>
+
+// Eine einzelne Definition der Inventar-Instanz und der Referenz:
+// - inventarStorage ist die tatsächliche Instanz
+// - inventarInfo ist die im Header deklarierte Referenz
+namespace pl {
+	inventar inventarStorage;
+	inventar& inventarInfo = inventarStorage;
+}
+
+GUI::GUI()
+{
+	//inventar.setSize({ 320.f, 500.f });
+	inventar.setFillColor(sf::Color::White);
+	//inventar.setPosition({ 10.f, 10.f });
+
+	if (!inventarTexture.loadFromFile("img/BG/inventar.png"))
+	{
+		std::cout << "Error loading inventar texture!" << std::endl;
+		exit(1);
+	}
+	
+	inventar.setTexture(&inventarTexture);
+
+}
+
+GUI::~GUI()
+{
+}
+
+void GUI::openInventar(const pl::Keys& keys, sf::RectangleShape player)
+{
+	 if (sf::Keyboard::isKeyPressed(keys.inventar))
+	 {
+
+		 if ((!inventarOpen))
+		 {
+
+			 std::cout << "Inventar geöffnet!" << std::endl;
+
+			 inventar.setPosition({ player.getPosition().x - 330, 10 });
+			 inventar.setSize({ 320.f, 500.f });
+
+			 inventarOpen = true;
+		 }
+		 if (sf::Keyboard::isKeyPressed(keys.right))
+		 {
+			 inventar.move({ 5.f, 0.f });
+		 }
+		 if (sf::Keyboard::isKeyPressed(keys.left))
+		 {
+			 inventar.move({ -5.f, 0.f });
+		 }
+	 }
+	 else
+	 {
+		 inventar.setPosition({ -500.f, -500.f });
+		 inventar.setSize({ 0.f, 0.f });
+		 std::cout << "Inventar geschlossen!" << std::endl;
+
+		 inventarOpen = false;
+	 }
+}
+
+
+void GUI::getInventarInfo()
+{
+	//std::cout << "\nGold: " << pl::inventarInfo.gold << '\n';
+	//std::cout << "Health Potions: " << pl::inventarInfo.healthPotions << '\n';
+	//std::cout << "Keys: " << pl::inventarInfo.keys << '\n';
+	//std::cout << "Atack Power: " << pl::inventarInfo.atackPower << '\n';
+	//std::cout << "Defense Power: " << pl::inventarInfo.defensePower << '\n';
+
+
+
+//sf::Font font; // must be loaded and kept alive
+//font.openFromFile("C:\\Windows\\Fonts\\72\\72 Bold (OpenType)");
+//
+//sf::Text goldText(font, "Gold: " + std::to_string(pl::inventarInfo.gold), 20);
+
+
+
+}

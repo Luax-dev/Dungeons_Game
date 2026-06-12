@@ -1,0 +1,72 @@
+#include <SFML/Graphics.hpp>
+#include <iostream>
+
+#include "Player.h"
+#include "Border.h"
+#include "Dungeons.h"
+#include "Draw.h"
+#include "door.h"
+#include "LevelLoder.h"
+
+void drawNewLevel(sf::RenderWindow& window, js::LevelData levelData)
+{
+	while (true)
+	{
+		window.clear();
+	}
+
+}
+
+
+
+config::config bevore()
+{
+	sf::Texture backgroundTexture;
+	if (!backgroundTexture.loadFromFile("Img\\BG\\Background_0.png"))
+	{
+		std::cerr << "Fehler: Konnte Hintergrundbild nicht laden!" << std::endl;
+		exit(-1);
+	}
+
+
+
+	sf::View camera;
+	camera.setSize({ 800.f, 600.f });
+	camera.setCenter({ 400.f, 300.f });
+	float cameraY = 300.f;
+
+
+
+	return config::config{ backgroundTexture ,camera, cameraY };
+}
+
+
+
+void drowBorders(sf::RenderWindow& window, Player& Player, Border& BorderGround, Border& BorderLeft, Border& BorderRight)
+{
+	window.draw(BorderGround.getBorder());
+	window.draw(BorderLeft.getBorder());
+	window.draw(BorderRight.getBorder());
+
+	BorderGround.colisionWithPlayer(Player);
+	BorderLeft.colisionWithPlayer(Player);
+	BorderRight.colisionWithPlayer(Player);
+}
+
+void drawPlayer(sf::RenderWindow& window, Player& Player)
+{
+	pl::Keys Keys{ sf::Keyboard::Key::W, sf::Keyboard::Key::LControl,
+					sf::Keyboard::Key::A, sf::Keyboard::Key::D, sf::Keyboard::Key::Space };
+
+	Player.handleInput(Keys);
+	Player.falling();           // erst Physik
+	window.draw(Player.getPlayer()); // dann zeichnen
+}
+
+void drawDoor(sf::RenderWindow& window, Door& door, Player& player, js::LevelData levelData)
+{
+	window.draw(door.getDoor());
+
+	door.colisionWithPlayer(player.getPlayer(), window, levelData);
+}
+

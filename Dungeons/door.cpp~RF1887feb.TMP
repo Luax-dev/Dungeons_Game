@@ -1,0 +1,13 @@
+#include "door.h"
+
+
+Door::Door( float X, float Y, float W = 75, float H = 117)
+{
+	door.setSize({ W, H });
+	door.setFillColor(sf::Color::Blue);
+	door.setPosition({ X, Y });
+}
+
+Door::~Door()
+{
+}

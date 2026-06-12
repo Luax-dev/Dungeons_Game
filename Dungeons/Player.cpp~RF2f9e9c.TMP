@@ -1,0 +1,85 @@
+#include "Player.h"
+#include <iostream>
+
+Player::Player()
+{
+
+
+	player.setSize({ 60, 100 });
+	player.setFillColor(sf::Color::White);
+	player.setPosition({ 400, 0 });
+
+	if (!playerTexture.loadFromFile("Img\\PL\\Player_0.png"))
+	{
+		// Fehlerbehandlung
+		std::cout << "Fehler: Konnte Hintergrundbild nicht laden!" << std::endl;// Programm mit Fehlercode beenden
+		exit(-1);
+	}
+	//player.setTexture(&playerTexture);
+
+}
+
+Player::~Player()
+{
+}
+
+void Player::handleInput(pl::Keys& Keys)
+{
+	//if (sf::Keyboard::isKeyPressed(Keys.up))
+	//{
+	//	player.move({ 0, -5 });
+	//}
+	if (sf::Keyboard::isKeyPressed(Keys.down))
+	{
+		player.setSize({ 70, 50 });
+		//player.move({ 0, 50 }); // Spieler nach unten bewegen, damit er nicht in der Luft schwebt
+	}
+	else
+	{
+		player.setSize({ 60, 100 });
+	}
+
+	if (sf::Keyboard::isKeyPressed(Keys.left))
+	{
+		player.move({ -5, 0 });
+	}
+
+	if (sf::Keyboard::isKeyPressed(Keys.right))
+	{
+		player.move({ 5, 0 });
+	}
+	if (sf::Keyboard::isKeyPressed(Keys.jump))
+	{
+		player.move({ 0, -12 });
+	}
+}
+
+
+void Player::setPositionX(float x) {
+	sf::Vector2f pos = player.getPosition();
+	pos.x = x;
+	player.setPosition(pos);
+}
+
+void Player::setPositionY(float y) {
+	sf::Vector2f pos = player.getPosition();
+	pos.y = y;
+	player.setPosition(pos);
+}
+
+void Player::setOnGround(bool grounded) {
+	onGround = grounded;
+}
+
+
+void Player::falling()
+{
+	onGround = false; // wird jedes Frame zurückgesetzt, Border setzt es wieder auf true
+
+	sf::Vector2f pos = player.getPosition();
+	if (pos.y < 600)
+	{
+		pos.y += 8;
+	}
+	player.setPosition(pos);
+}

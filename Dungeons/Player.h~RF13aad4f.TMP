@@ -1,0 +1,25 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+#include "Dungeons.h"
+
+
+class Player
+{
+public:
+	Player();
+	~Player();
+
+	sf::RectangleShape getPlayer() const { return player; }
+
+	void handleInput(pl::Keys& Keys);
+
+	sf::Vector2f getCenter() const {
+		return player.getPosition() + player.getSize() / 2.f;
+	}
+
+	void falling();
+
+private:
+	sf::RectangleShape player;
+	sf::Texture playerTexture;
+};

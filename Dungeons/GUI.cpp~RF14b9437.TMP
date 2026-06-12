@@ -1,0 +1,23 @@
+#include "GUI.h"
+#include <iostream>
+
+
+GUI::GUI()
+{
+	inventar.setSize({ 320.f, 500.f });
+	inventar.setFillColor(sf::Color::White);
+	inventar.setPosition({ 10.f, 10.f });
+
+	if (!inventarTexture.loadFromFile("img/BG/inventar.png"))
+	{
+		std::cout << "Error loading inventar texture!" << std::endl;
+		exit(1);
+	}
+	
+	inventar.setTexture(&inventarTexture);
+
+}
+
+GUI::~GUI()
+{
+}
